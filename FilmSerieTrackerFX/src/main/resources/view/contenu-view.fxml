@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.maisonneuve.filmserietrackerfx.controller.ContenuController">
+
+    <top>
+        <GridPane hgap="10" vgap="10">
+
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- LIGNE 0 -->
+            <Label text="Titre" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="titreField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Année" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <TextField fx:id="anneeField" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+            <!-- LIGNE 1 -->
+            <Label text="Type" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="typeCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Statut" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <ComboBox fx:id="statutCombo" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            <!-- LIGNE 2 -->
+            <Label text="Note" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="noteCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Genre" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+            <ComboBox fx:id="genreCombo" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+            <!-- LIGNE 3 -->
+            <CheckBox fx:id="watchlistCheck"
+                      text="Watchlist"
+                      GridPane.rowIndex="3"
+                      GridPane.columnIndex="0"/>
+
+            <Button text="Ajouter"
+                    onAction="#ajouterContenu"
+                    GridPane.rowIndex="3"
+                    GridPane.columnIndex="3"/>
+            <VBox fx:id="progressionBox"
+                  GridPane.rowIndex="4"
+                  GridPane.columnIndex="0"
+                  GridPane.columnSpan="4"
+                  spacing="10"
+                  visible="false"
+                  managed="false">
+
+                <Label text="Progression Série"/>
+
+                <HBox spacing="10">
+
+                    <Label text="Episodes vus"/>
+                    <TextField fx:id="episodesVusField"/>
+
+                    <Label text="Total"/>
+                    <TextField fx:id="episodesTotalField"/>
+
+                </HBox>
+
+            </VBox>
+
+        </GridPane>
+    </top>
+    <right>
+
+        <VBox spacing="10">
+
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Recherche"/>
+            <TextField fx:id="searchField" promptText="Titre..."/>
+
+        </VBox>
+
+    </right>
+
+    <center>
+        <TableView fx:id="tableContenus">
+            <columns>
+                <TableColumn fx:id="colTitre" text="Titre"/>
+                <TableColumn fx:id="colAnnee" text="Année"/>
+                <TableColumn fx:id="colType" text="Type"/>
+                <TableColumn fx:id="colGenre" text="Genre"/>
+                <TableColumn fx:id="colStatut" text="Statut"/>
+                <TableColumn fx:id="colWatchlist" text="Watchlist"/>
+                <TableColumn fx:id="colNote" text="Note"/>
+                <TableColumn fx:id="colProgress" text="Progression"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+
+        <VBox spacing="10">
+
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Boutons -->
+            <HBox spacing="10">
+                <Button text="Modifier" onAction="#modifierContenu"/>
+                <Button text="Supprimer" onAction="#supprimerContenu"/>
+            </HBox>
+
+            <!-- Statistiques -->
+            <HBox spacing="20">
+
+                <Label text="Total:"/>
+                <Label fx:id="totalLabel"/>
+
+                <Label text="Films:"/>
+                <Label fx:id="filmsLabel"/>
+
+                <Label text="Séries:"/>
+                <Label fx:id="seriesLabel"/>
+
+                <Label text="Watchlist:"/>
+                <Label fx:id="watchlistLabel"/>
+
+            </HBox>
+
+        </VBox>
+
+    </bottom>
+
+</BorderPane>
