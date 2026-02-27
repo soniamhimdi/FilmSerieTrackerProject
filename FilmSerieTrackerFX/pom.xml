@@ -67,7 +67,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.maisonneuve.filmserietrackerfx/com.maisonneuve.filmserietrackerfx.HelloApplication
+                                com.maisonneuve.filmserietrackerfx/com.maisonneuve.filmserietrackerfx.MainApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
