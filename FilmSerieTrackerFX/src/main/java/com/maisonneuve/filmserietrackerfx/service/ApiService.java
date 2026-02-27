@@ -91,4 +91,16 @@ public class ApiService {
             e.printStackTrace();
         }
     }
-}
+    public void updateProgression(ProgressionSerie p) {
+
+        try {
+
+            String json = gson.toJson(p);
+
+            apiClient.put("/progression/" + p.getContenuId(), json);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    }

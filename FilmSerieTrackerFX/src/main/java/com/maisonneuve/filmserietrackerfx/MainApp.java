@@ -14,12 +14,21 @@ public class MainApp extends Application {
                 getClass().getResource("/view/contenu-view.fxml")
         );
 
-        stage.setScene(new Scene(loader.load(), 800, 600));
-        stage.setTitle("Film Serie Tracker");
+        Scene scene = new Scene(loader.load());
+
+        // CSS
+        scene.getStylesheets().add(
+                getClass().getResource("/style/app.css").toExternalForm()
+        );
+
+        stage.setTitle("Film & Serie Tracker");
+        stage.setScene(scene);
+        stage.setWidth(1000);
+        stage.setHeight(650);
         stage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

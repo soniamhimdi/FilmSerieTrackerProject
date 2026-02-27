@@ -24,4 +24,6 @@ public class ProgressionSerieController {
     public ProgressionSerie save(@RequestBody ProgressionSerie p){
         return repo.save(p);
     }
+
+
 }
