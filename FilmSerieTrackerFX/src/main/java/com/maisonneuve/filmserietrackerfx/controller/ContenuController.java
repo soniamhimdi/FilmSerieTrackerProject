@@ -341,14 +341,13 @@ public void ajouterContenu() {
     @FXML
     public void modifierContenu() {
 
-        Contenu c = tableContenus.getSelectionModel().getSelectedItem();
-
-        if (c == null) {
-            showToast("⚠ Aucun élément sélectionné !");
-            return;
-        }
-
         try {
+
+            Contenu c = tableContenus.getSelectionModel().getSelectedItem();
+            if (c == null) {
+                showToast("⚠ Aucun contenu sélectionné !");
+                return;
+            }
 
             c.setTitre(titreField.getText());
             c.setAnneeSortie(Integer.parseInt(anneeField.getText()));
@@ -358,63 +357,38 @@ public void ajouterContenu() {
             c.setNote(noteCombo.getValue());
             c.setGenreId(genreCombo.getValue().getId());
 
-            // 🔥 1️⃣ Modifier contenu
             apiService.modifierContenu(c);
 
-            // 🔥 2️⃣ ICI on met à jour la progression
+            // 🔥 GESTION PROGRESSION SERIE
             if ("SERIE".equals(c.getType())) {
 
                 if (!episodesVusField.getText().isEmpty() &&
                         !episodesTotalField.getText().isEmpty()) {
 
-                    int vus = Integer.parseInt(episodesVusField.getText());
-                    int total = Integer.parseInt(episodesTotalField.getText());
+                    ProgressionSerie p = new ProgressionSerie();
+                    p.setContenuId(c.getId());
+                    p.setEpisodesVus(
+                            Integer.parseInt(episodesVusField.getText())
+                    );
+                    p.setEpisodesTotaux(
+                            Integer.parseInt(episodesTotalField.getText())
+                    );
 
-                    ProgressionSerie existing =
-                            apiService.getProgression(c.getId());
-
-                    if (existing != null) {
-                        existing.setEpisodesVus(vus);
-                        existing.setEpisodesTotaux(total);
-                        apiService.saveProgression(existing);//update plustard avec put en ApiService
-                    } else {
-                        ProgressionSerie p = new ProgressionSerie();
-                        p.setContenuId(c.getId());
-                        p.setEpisodesVus(vus);
-                        p.setEpisodesTotaux(total);
-                        apiService.saveProgression(p);
-                    }
+                    apiService.updateProgression(p);
                 }
             }
 
-            // 🔥 3️⃣ Recharger table
             chargerContenus();
             tableContenus.refresh();
-
-            clearForm();
             showToast("✔ Contenu modifié avec succès !");
+            clearForm();
 
         } catch (NumberFormatException e) {
-            showToast("⚠ Données invalides !");
+            showToast("⚠ Valeurs invalides !");
         }
     }
-//    public void modifierContenu(){
-//
-//        Contenu c = tableContenus.getSelectionModel().getSelectedItem();
-//        if(c == null) return;
-//
-//        c.setTitre(titreField.getText());
-//        c.setAnneeSortie(Integer.parseInt(anneeField.getText()));
-//
-//        c.setType(typeCombo.getValue());
-//        c.setStatut(statutCombo.getValue());
-//        c.setWatchlist(watchlistCheck.isSelected());
-//        c.setNote(noteCombo.getValue());
-//        c.setGenreId(genreCombo.getValue().getId());
-//
-//        apiService.modifierContenu(c);
-//        chargerContenus();
-//    }
+
+
 // Supprimer contenu
 
     @FXML

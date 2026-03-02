@@ -6,10 +6,11 @@ import com.maisonneuve.filmserietrackerfx.model.ProgressionSerie;
 import com.maisonneuve.filmserietrackerfx.util.JsonUtil;
 import com.maisonneuve.filmserietrackerfx.model.Genre;
 import java.util.List;
-
+//import com.google.gson.Gson;
 public class ApiService {
 
     private final ApiClient apiClient;
+    //private final Gson gson = new Gson();
 
     public ApiService() {
         this.apiClient = new ApiClient();
@@ -91,16 +92,29 @@ public class ApiService {
             e.printStackTrace();
         }
     }
-    public void updateProgression(ProgressionSerie p) {
+//    public void updateProgression(ProgressionSerie p) {
+//
+//        try {
+//
+//            String json = gson.toJson(p);
+//
+//            apiClient.put("/progression/" + p.getContenuId(), json);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+public void updateProgression(ProgressionSerie p) {
 
-        try {
+    try {
 
-            String json = gson.toJson(p);
+        apiClient.put(
+                "/progression/" + p.getContenuId(),
+                JsonUtil.toJson(p)
+        );
 
-            apiClient.put("/progression/" + p.getContenuId(), json);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
     }

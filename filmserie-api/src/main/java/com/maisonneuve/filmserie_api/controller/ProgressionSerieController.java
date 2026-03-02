@@ -24,6 +24,24 @@ public class ProgressionSerieController {
     public ProgressionSerie save(@RequestBody ProgressionSerie p){
         return repo.save(p);
     }
+    @PutMapping("/{contenuId}")
+    public ProgressionSerie update(
+            @PathVariable int contenuId,
+            @RequestBody ProgressionSerie updated) {
 
+        System.out.println("PUT progression reçu pour id = " + contenuId);
+
+        ProgressionSerie existing = repo.findByContenuId(contenuId);
+
+        if (existing == null) {
+            System.out.println("Progression non trouvée !");
+            throw new RuntimeException("Progression non trouvée");
+        }
+
+        existing.setEpisodesVus(updated.getEpisodesVus());
+        existing.setEpisodesTotaux(updated.getEpisodesTotaux());
+
+        return repo.save(existing);
+    }
 
 }
